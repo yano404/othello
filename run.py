@@ -1,6 +1,6 @@
 import othello
 
-def main():
+def main(method="alphabeta"):
     game = othello.game()
     print("Your stone is Black(B)")
     while game.goeson():
@@ -28,7 +28,10 @@ def main():
             if len(game.findavailable()) == 0:
                 game.upass()
             else:
-                pos, score = game.alphabeta()
+                if method == "alphabeta":
+                    pos, score = game.alphabeta()
+                else:
+                    pos, score = game.minmax()
                 print("score:", score)
                 game.put(pos[0], pos[1])
 
@@ -44,7 +47,8 @@ def main():
         print("White: ", game.numwhite())
     else:
         print("Draw")
+    print("log: (stone, row, col)")
     print(game.getlog())
 
 if __name__ == '__main__':
-    main()
+    main("minmax")

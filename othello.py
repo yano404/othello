@@ -4,7 +4,18 @@ import random
 class board(object):
     def __init__(self, cells = None, initturn = 1):
         # 0: None, 1: Black, -1: White
-        self.__STONE = ('   ', ' B ', ' W ')
+        BLACK    = '\033[30m'
+        WHITE    = '\033[37m'
+        BG_BLACK = '\033[40m'
+        BG_WHITE = '\033[47m'
+        BOLD     = '\033[1m'
+        RESET    = '\033[0m'
+        BLINK    = '\033[5m'
+        self.__STONE = (
+            ('   ', ' B ', ' W '),
+            ('   ', WHITE+BG_BLACK+' B '+RESET, BLACK+BG_WHITE+' W '+RESET),
+            ('   ', BLINK+WHITE+BG_BLACK+' B '+RESET, BLINK+BLACK+BG_WHITE+' W '+RESET)
+        )
         if cells is None:
             self.__cells = [[None for i in range(10)]]\
             + [[None]+[0 for j in range(8)]+[None] for i in range(8)]\
@@ -157,14 +168,17 @@ class board(object):
     def show(self):
         print("="*36)
         print("Turn Count:", self.__count)
-        print("Turn:", self.__STONE[self.__turn])
+        print("Turn:", self.__STONE[1][self.__turn])
         print("="*36)
         print("     1   2   3   4   5   6   7   8  ")
         for i in range(1,9):
             print("   "+"+---"*8+'+')
             print(" "+str(i)+" |", end='')
             for j in range(1,9):
-                print(self.__STONE[self.__cells[i][j]], end = '|')
+                if len(self.__log) != 0 and i == self.__log[-1][1] and j == self.__log[-1][2]:
+                    print(self.__STONE[2][self.__cells[i][j]], end = '|')
+                else:
+                    print(self.__STONE[1][self.__cells[i][j]], end = '|')
             print('')
         print("   "+"+---"*8+'+')
 
