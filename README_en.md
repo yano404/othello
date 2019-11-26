@@ -1,8 +1,8 @@
 |[English](README_en.md)|[日本語](README.md)|
 
 # Othello
-This is the Othello game (Human vs Computer) using αβmethod or minmax method.
-
+This is the Othello game (Human vs Computer).
+Computer uses αβmethod or minmax method.
 
 ## How to play
 You can start the game by `python3 run.py`.
