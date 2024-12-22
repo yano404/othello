@@ -51,4 +51,15 @@ def main(method="alphabeta"):
     print(game.getlog())
 
 if __name__ == '__main__':
-    main("minmax")
+    methods = ["minmax", "alphabeta"]
+    while True:
+        print("Select method:")
+        for i, method in enumerate(methods):
+            print(f"{i+1}) {method}")
+        try:
+            sel = methods[int(input(">")) - 1]
+            break
+        except (ValueError, IndexError):
+            print("Enter a valid number.")
+
+    main(sel)
